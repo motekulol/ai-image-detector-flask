@@ -1,6 +1,6 @@
 # Aplikacja Flask – Detekcja Obrazów AI
 
-Projekt magisterski: **Wykrywanie obrazów generowanych przez SI przy użyciu komitetów modeli i zewnętrznych detektorów**.
+Projekt magisterski: **Metody detekcji treści generowanej przez sztuczną inteligencję w obszarze rozwiązań graficznych.**.
 
 ---
 
