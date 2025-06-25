@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title>Wynik detekcji</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 2em;
+    }
+    h1, h2 {
+      margin-bottom: 0.5em;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 0.3em 0;
+      font-size: 1.1em;
+    }
+    .positive {
+      color: green;
+      font-weight: bold;
+    }
+    .negative {
+      color: red;
+      font-weight: bold;
+    }
+    .final {
+      margin-top: 1.5em;
+      font-size: 1.3em;
+    }
+    a {
+      display: inline-block;
+      margin-top: 2em;
+      text-decoration: none;
+      color: #0066cc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Wyniki detekcji: </h1>
+
+  <h2>Prawdopodobieństwa modeli bazowych (0–1):</h2>
+  <ul>
+    <li>
+      AI Image Detector: {{ "%.3f"|format(probs['ai_image_detector']) }}
+      {% if simulated['ai_image_detector'] %}
+        <span style="color: gray; font-size: 0.9em;">(wartość symulowana)</span>
+      {% endif %}
+    </li>
+    <li>The Detector AI:     {{ "%.3f"|format(probs['the_detector_ai']) }}</li>
+    <li>AI Detect Content:   {{ "%.3f"|format(probs['ai_detect_content']) }}</li>
+  </ul>
+
+  <h2>Decyzje poszczególnych komitetów:</h2>
+  <ul>
+    <li>K1 (głosowanie większościowe): 
+      <span class="{{ 'positive' if k1 else 'negative' }}">
+        {{ "SI" if k1 else "Rzeczywiste" }}
+      </span>
+    </li>
+    <li>K2 (średnia ważona): 
+      <span class="{{ 'positive' if k2 else 'negative' }}">
+        {{ "SI" if k2 else "Rzeczywiste" }}
+      </span>
+    </li>
+    <li>K3 (stacking): 
+      <span class="{{ 'positive' if k3 else 'negative' }}">
+        {{ "SI" if k3 else "Rzeczywiste" }}
+      </span>
+    </li>
+  </ul>
+
+  {# Finalna decyzja: większość z K1,K2,K3 #}
+  {% set votes = (k1|int) + (k2|int) + (k3|int) %}
+  {% set final_positive = votes >= 2 %}
+  <div class="final">
+    Finalna decyzja komitetu: 
+    <span class="{{ 'positive' if final_positive else 'negative' }}">
+      {{ "POZYTYWNA (SI)" if final_positive else "NEGATYWNA (Rzeczywiste)" }}
+    </span>
+  </div>
+
+  {% if simulated['ai_image_detector'] %}
+    <p style="color: gray; font-size: 0.9em; margin-top: 1em;">
+      *Wartość AI Image Detector została <strong>symulowana</strong> na podstawie danych historycznych, ponieważ serwis jest obecnie niedostępny.
+    </p>
+  {% endif %}
+
+  <p><a href="/">← Wróć</a></p>
+</body>
+</html>
