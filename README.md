@@ -1,6 +1,6 @@
 # Aplikacja Flask – Detekcja Obrazów AI
 
-Projekt magisterski: **Metody detekcji treści generowanej przez sztuczną inteligencję w obszarze rozwiązań graficznych.**.
+Temat pracy magisterskiej: **Metody detekcji treści generowanej przez sztuczną inteligencję w obszarze rozwiązań graficznych.**.
 
 ---
 
